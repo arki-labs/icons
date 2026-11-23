@@ -1,4 +1,4 @@
 /** The default entry: every Phosphor icon plus the shared `IconSVG` type. */
-export * from './phosphor';
-export * from './types';
+export * from './phosphor.js';
+export * from './types.js';
 //# sourceMappingURL=index.d.ts.map

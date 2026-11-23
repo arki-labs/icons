@@ -1,4 +1,4 @@
-Read-only mirror of `@arki/icons` v0.2.0. Source and issues: arki-labs/arki. Docs: https://arki.dev/packages/icons. Published 2026-11-02 with provenance https://www.npmjs.com/package/@arki/icons/v/0.2.0#provenance.
+Read-only mirror of `@arki/icons` v0.2.1. Source and issues: arki-labs/arki. Docs: https://arki.dev/packages/icons. Published 2026-11-23 with provenance https://www.npmjs.com/package/@arki/icons/v/0.2.1#provenance.
 
 # @arki/icons
 
@@ -35,22 +35,22 @@ export function SearchButton() {
 
 - You want one icon from one set. Import `@phosphor-icons/react` or `lucide-react` directly. This package adds the defaults providers and the other sets, not new icons.
 - You need the smallest possible bundle. One Phosphor icon costs about the same as the direct import, but the Iconify data in `node_modules` is large.
-- Your bundler cannot handle `.tsx` source or CSS imports. See Runtime support.
+- Your bundler cannot handle CSS imports. See Runtime support.
 
 ## Runtime support
 
-Source-distributed: ships TypeScript/TSX, needs a bundler (Vite with the TanStack Start stack).
+Ships compiled JavaScript (`dist/`). `./spinners` needs a bundler: `react-spinners` is CommonJS without named exports.
 
-`bun run test:runtimes` renders an icon to HTML, reads the brand data and checks the spinner names on Bun, Deno and a browser. Plain Node is not claimed: the package ships TypeScript source, and Node does not strip types inside `node_modules`. On Node, import it through a bundler (Vite, Next, TanStack Start). Hermes is not claimed: the package targets web React.
+`bun run test:runtimes` renders an icon to HTML, reads the brand data and checks the spinner names on Bun, Deno and a browser. Plain Node is not claimed yet: every entry but `./spinners` loads there, but no Node leg has been recorded. Hermes is not claimed: the package targets web React.
 
 <!-- runtimes:start -->
 | Runtime | Result | Version tested | Date (UTC) |
 | --- | --- | --- | --- |
-| node | n/a | - | 2026-10-31 |
-| bun | pass | 1.4.4 | 2026-10-31 |
-| deno | pass | 2.9.8 | 2026-10-31 |
-| browser | pass | Chromium 156.0.8078.4 | 2026-10-31 |
-| hermes | n/a | - | 2026-10-31 |
+| node | n/a | - | 2026-11-05 |
+| bun | pass | 1.4.2 | 2026-11-05 |
+| deno | pass | 2.9.8 | 2026-11-05 |
+| browser | pass | Chromium 156.0.8078.4 | 2026-11-05 |
+| hermes | n/a | - | 2026-11-05 |
 <!-- runtimes:end -->
 
 ## Public imports
@@ -76,6 +76,10 @@ Nothing here throws at runtime. Mistakes show up as types or as a missing pictur
 - `Flag` takes a `code` typed from `flagpack-core`. A code that slips past the types renders a broken `<img>`. The component does not check that the file exists.
 - A brand mark is plain data (`title`, `hex`, `path`, `svg`). Importing a name that Simple Icons removed is a build error.
 - `Icon` from `@arki/icons/wc` shows nothing until its data is loaded. Handle the empty state yourself.
+
+## Observability
+
+Runs at build time, not in the app. The Vite plugin lists the built icon files once while bundling, so it has no spans or metrics.
 
 ## Limits
 
@@ -127,9 +131,9 @@ Rewritten statements keep their line count, so stack traces and source maps stil
 
 Bundle size of the same icons imported from @arki/icons and from popular React icon libraries. The main entry of @arki/icons is Phosphor, so Phosphor imported directly is a plain row to show the wrapper cost.
 
-Measured on Node 26.12.1 (Darwin 27.0.0 arm64, Apple M2 Max (12 cores)) · @arki/bench 0.2.0 (mitata 1.0.34) · publish, seed 1592639052 · commit 57ff7b0beb · 2026-11-01.
+Measured on Node 26.11.1 (Darwin 27.2.0 arm64, Apple M2 Max (12 cores)) · @arki/bench 0.2.0 (mitata 1.0.34) · publish, seed 1592639052 · commit b61efa33ba · 2026-11-22.
 
-Versions: @arki/bench 0.2.0 · @arki/icons 0.2.0 · @phosphor-icons/react 2.1.10 · lucide-react 0.542.0 · mitata 1.0.34 · react-icons 5.7.0.
+Versions: @arki/bench 0.2.0 · @arki/icons 0.2.1 · @phosphor-icons/react 2.1.10 · lucide-react 0.542.0 · mitata 1.0.34 · react-icons 5.7.0.
 
 ### 1 icon
 
@@ -137,9 +141,9 @@ Rows marked *different contract* do other work: they are measured and shown, nev
 
 | Library | Version | JS+CSS gzip | brotli | raw | Budget (gzip) | vs @arki/icons |
 | --- | --- | --: | --: | --: | --- | --- |
-| **@arki/icons** | 0.2.0 | 842 B | 752 B | 2.13 kB | 1 kB | baseline |
-| @phosphor-icons/react (direct) | 2.1.10 | 843 B | 741 B | 2.13 kB | — | ≈ same |
-| lucide-react | 0.542.0 | 741 B | 649 B | 1.25 kB | — | different contract: other drawings, one weight |
+| **@arki/icons** | 0.2.1 | 850 B | 752 B | 2.13 kB | 1 kB | baseline |
+| @phosphor-icons/react (direct) | 2.1.10 | 853 B | 741 B | 2.13 kB | — | ≈ same |
+| lucide-react | 0.542.0 | 746 B | 649 B | 1.25 kB | — | different contract: other drawings, one weight |
 | react-icons (fa6) | 5.7.0 | 1.23 kB | 1.09 kB | 2.76 kB | — | different contract: other drawings, one weight |
 
 ### 10 common icons
@@ -148,10 +152,10 @@ Rows marked *different contract* do other work: they are measured and shown, nev
 
 | Library | Version | JS+CSS gzip | brotli | raw | Budget (gzip) | vs @arki/icons |
 | --- | --- | --: | --: | --: | --- | --- |
-| **@arki/icons** | 0.2.0 | 7.05 kB | 5.94 kB | 29.1 kB | 8 kB | baseline |
-| @phosphor-icons/react (direct) | 2.1.10 | 7.11 kB | 5.95 kB | 29.1 kB | — | ≈ same |
-| lucide-react | 0.542.0 | 1.39 kB | 1.25 kB | 2.89 kB | — | different contract: other drawings, one weight |
-| react-icons (fa6) | 5.7.0 | 2.72 kB | 2.33 kB | 7.08 kB | — | different contract: other drawings, one weight |
+| **@arki/icons** | 0.2.1 | 7.01 kB | 5.94 kB | 29.1 kB | 8 kB | baseline |
+| @phosphor-icons/react (direct) | 2.1.10 | 7.06 kB | 5.95 kB | 29.1 kB | — | ≈ same |
+| lucide-react | 0.542.0 | 1.4 kB | 1.25 kB | 2.89 kB | — | different contract: other drawings, one weight |
+| react-icons (fa6) | 5.7.0 | 2.73 kB | 2.33 kB | 7.08 kB | — | different contract: other drawings, one weight |
 
 check, x, menu, search, user, settings, home, arrow-right, trash, plus.
 
@@ -166,15 +170,15 @@ check, x, menu, search, user, settings, home, arrow-right, trash, plus.
 
 - command: `arki-bench run --profile publish`
 - profile: publish
-- packages: @arki/bench 0.2.0, @arki/bench 0.2.0, @arki/icons 0.2.0, @phosphor-icons/react 2.1.10, lucide-react 0.542.0, mitata 1.0.34, react-icons 5.7.0
-- machine: Darwin 27.0.0 arm64, Apple M2 Max (12 cores), 96 GB RAM
-- source commit: 57ff7b0beb3db214a4c7e90b1487f05573ac7e21
+- packages: @arki/bench 0.2.0, @arki/bench 0.2.0, @arki/icons 0.2.1, @phosphor-icons/react 2.1.10, lucide-react 0.542.0, mitata 1.0.34, react-icons 5.7.0
+- machine: Darwin 27.2.0 arm64, Apple M2 Max (12 cores), 96 GB RAM
+- source commit: b61efa33bac8e8becffdb3e7bb00ba527a34df9c
 
-provenance: 57ff7b0beb3db214a4c7e90b1487f05573ac7e21
+provenance: b61efa33bac8e8becffdb3e7bb00ba527a34df9c
 
 Reproduce: `bunx arki-bench run --profile publish` in the package directory.
 
-<!-- bench:meta {"schema":1,"suite":"@arki/icons","specHash":"e7708cf7a5281c3b","profile":"publish","date":"2026-11-01T09:04:49.862Z","harness":"0.2.0"} -->
+<!-- bench:meta {"schema":1,"suite":"@arki/icons","specHash":"e7708cf7a5281c3b","profile":"publish","date":"2026-11-22T20:19:23.619Z","harness":"0.2.0"} -->
 <!-- bench:end -->
 
 ## Documentation

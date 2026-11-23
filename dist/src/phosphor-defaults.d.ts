@@ -1,4 +1,4 @@
-import { type IconWeight } from '@phosphor-icons/react';
+import type { IconWeight } from '@phosphor-icons/react';
 import type { ReactNode } from 'react';
 /**
  * Shape of the values consumed by Phosphor's `<IconContext.Provider>`.
